@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* animation: bounce 1s infinite; */
+@keyframes bounce {
+    0%, 100% {
+      transform: translateY(-25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+      box-shadow: 0 2px 10px 0 rgba(177, 151, 222, 0.781), 0 1px 14px 0 rgba(177, 157, 211, 0.781);
+
+    }   
+
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+}
