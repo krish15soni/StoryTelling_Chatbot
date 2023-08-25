@@ -63,8 +63,8 @@ export default function Home({ params }) {
   }
 
 return (
-  <div className='flex  max-h-full bg-[#efd2688b]'>
-    <div className='flex my-[2%] mx-[6%] rounde-lg  bg-slate-400'>
+  <>
+    <div className='container mx-auto px-4 min-h-screen bg-blue-300 py-2'>
       <div className='flex flex-col w-full'>
         <h2 className='text-lg'>Untitled Form</h2>
       </div>
@@ -166,6 +166,6 @@ return (
         <button onClick={createForm} className='inline-flex bg-gray-800 hover:bg-gray-700 items-center p-3 text-sm text-white rounded-md'>Create Form</button>
       </div>
     </div>
-  </div>
+  </>
 )
 }
