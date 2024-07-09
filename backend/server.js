@@ -1,26 +1,34 @@
 import express from "express";
 import dotenv from "dotenv";
-import cookieParser from "cookie-parser"
+import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 
-import connectToMongoDB  from "./db/connectToMongoDB.js";
+import connectToMongoDB from "./db/connectToMongoDB.js";
+import { app, server } from "./socket/socket.js";
 
-const app = express();
-const PORT = process.env.PORT || 5000;  
+// Load environment variables
+dotenv.config();
 
-dotenv. config();
+const PORT = process.env.PORT || 5000;
 
-app.use(express.json())
-app.use(cookieParser())
+// Middleware
+app.use(express.json());
+app.use(cookieParser());
 
+// Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/messages", messageRoutes); 
+app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 
-app.listen(PORT ,() =>{
-    connectToMongoDB()
-    console.log(`Server Runing on port ${PORT}`)    
+// Connect to MongoDB and start the server
+server.listen(PORT, async () => {
+  try {
+    await connectToMongoDB();
+    console.log(`Server running on port ${PORT}`);
+  } catch (error) {
+    console.error("Failed to connect to MongoDB", error);
+  }
 });
