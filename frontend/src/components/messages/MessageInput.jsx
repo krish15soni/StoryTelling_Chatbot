@@ -1,5 +1,5 @@
 // components/MessageInput.js
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { BsSend } from 'react-icons/bs';
 import useSendMessage from '../../hooks/useSendMessage';
 
@@ -13,7 +13,7 @@ const MessageInput = () => {
     await sendMessage(message);
     setMessage("");
   };
-
+ 
   return (
     <form action="" className="px-4 my-3" onSubmit={handleSubmit}>
       <div className="w-full relative">
