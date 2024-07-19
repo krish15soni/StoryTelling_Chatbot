@@ -68,7 +68,7 @@ export const deleteMessage = async (req, res) => {
         if (!req.user || !req.user._id) {
             return res.status(400).json({ error: 'Invalid request, user not authenticated' });
         }
-
+        
         const senderId = req.user._id;
 
         console.log(`Attempting to delete message with ID: ${id} by user: ${senderId}`);
@@ -83,7 +83,7 @@ export const deleteMessage = async (req, res) => {
         console.log(`Message found: ${messageToDelete}`);
         console.log(`Message sender ID: ${messageToDelete.senderId}`);
         console.log(`Request user ID: ${senderId}`);
-
+                 
         // Check if the sender is the same as the user trying to delete the message
         if (messageToDelete.senderId.toString() !== senderId.toString()) {
             console.log(`Unauthorized action by user: ${senderId} for message: ${messageToDelete._id}`);
