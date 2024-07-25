@@ -36,7 +36,7 @@ const Message = ({ message }) => {
       </div>
       <div className="message-container flex items-center">
         {fromMe && (
-          <button onClick={handleDelete} disabled={loading} className="delete-button mr-2 text-xs text-gray-500"><MdDelete /></button>
+          <button onClick={handleDelete} disabled={loading} className="delete-button mr-2 text-xs text-[#e8edf1]"><MdDelete /></button>
         )}
         <div className={`chat-bubble text-white ${bubbleBgColor}  pb-2 break-words overflow-hidden max-w-full `}>
           {message.message}

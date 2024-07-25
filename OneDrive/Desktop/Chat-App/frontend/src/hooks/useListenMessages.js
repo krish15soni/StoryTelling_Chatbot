@@ -1,36 +1,28 @@
 // hooks/useListenMessages.js
-import { useEffect } from "react";
-import { useSocketContext } from "../context/SocketContext";
-import useConversation from "../zustand/useConversation";
-import notificationSound from "../assets/sounds/notification.mp3";
+import { useEffect } from 'react';
+import useConversation from '../zustand/useConversation';
+import io from 'socket.io-client';
+
+const socket = io(); // Connect to the server
 
 const useListenMessages = () => {
-  const { socket } = useSocketContext();
-  const { messages, setMessages } = useConversation();
+  const { setMessages } = useConversation();
 
   useEffect(() => {
-    socket?.on("newMessage", (newMessage)=>{
-      newMessage.shouldShake = true;
-            const sound = new Audio(notificationSound);
-            sound.play();
-      setMessages([...messages, newMessage])
-  });
+    socket.on('receiveMessage', (message) => {
+      setMessages(prevMessages => [...prevMessages, message]);
+    });
 
-  return () => socket?.off("newMessage");
+    socket.on('messageDeleted', (data) => {
+      // Handle message deletion (e.g., remove from state)
+      setMessages(prevMessages => prevMessages.filter(msg => msg._id !== data.messageId));
+    });
 
-}, [socket, setMessages, messages]);
+    return () => {
+      socket.off('receiveMessage');
+      socket.off('messageDeleted');
+    };
+  }, [setMessages]);
 };
-//   useEffect(() => {
-//     const handleNewMessage = (newMessage) => {
-//       setMessages((prevMessages) => [...prevMessages, newMessage]);
-//     };
-
-//     socket?.on("newMessage", handleNewMessage);
-
-//     return () => {
-//       socket?.off("newMessage", handleNewMessage);
-//     };
-//   }, [socket, setMessages]);
-// };
 
 export default useListenMessages;
